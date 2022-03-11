@@ -204,3 +204,45 @@ const addArrow = (a, b) => {
 }
 
 //addArrow(2, 5, 8, 12); //error
+
+
+/*========================
+==Primitives vs. Objects== 
+==========================*/
+
+//Primitive types
+let age = 30;
+let oldAge = age; //30
+age = 31; 
+console.log(age); //31
+console.log(oldAge); //30
+
+//Reference types
+const me = {
+  name: "Lili",
+  age: 33
+}
+
+const friend = me; 
+friend.age = 27;
+
+console.log('Friend:', friend); //Friend: { name: 'Lili', age: 27 }
+console.log('Me:', me); //Me: { name: 'Lili', age: 27 }
+
+//How we can fix it
+//Copying objects
+const jessica = {
+  firstName: 'Jessica',
+  lastName: 'Williams',
+  age: 27,
+  family: ['Simon']
+}
+
+const jessicaMarried = Object.assign({}, jessica);
+jessicaMarried.lastName = 'Davis';
+
+jessicaMarried.family.push('Mark');
+
+console.log('Before marriage:', jessica); //Before marriage: { firstName: 'Jessica', lastName: 'Williams', age: 27, family: [ 'Simon', 'Mark' ]}
+console.log('After marriage:', jessicaMarried); //After marriage: { firstName: 'Jessica', lastName: 'Davis', age: 27, family: [ 'Simon', 'Mark' ]}
+
