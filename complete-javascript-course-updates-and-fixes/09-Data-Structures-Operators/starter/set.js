@@ -23,14 +23,12 @@ console.log(ordersSet.size); //3
 console.log(new Set('globant').size); //7
 console.log(new Set('liliana').size); //4 (no se repiten letras)
 
-
 //Checking if there's an element or not
 console.log(ordersSet.has('Pizza')); //true
 console.log(ordersSet.has('Bread')); //false
 
 //Add an element 
-ordersSet.add('Garlic Bread', 'toast');
-//ordersSet.add('Garlic Bread');
+ordersSet.add('Garlic Bread');
 ordersSet.add('Chocolate Donnut');
 console.log(ordersSet); //{'Pasta', 'Pizza', 'Risotto', 'Garlic Bread', 'Chocolate Donnut'}
 
@@ -56,10 +54,3 @@ const staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter'];
 const staffUnique = [...new Set(staff)];
 console.log(staffUnique); //['Waiter', 'Chef', 'Manager']
 console.log(new Set(staffUnique).size); //3
-
-
-
-console.log('======= MAPS =======');
-
-const rest = new Map();
-
