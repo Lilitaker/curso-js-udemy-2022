@@ -37,42 +37,33 @@ const poll = {
   options: ['0: Javascript', '1: Python', '2: Rust', '3: C++'],
   //This generates [0, 0, 0, 0]
   answers: new Array(4).fill(0),
-  registerNewAnswer(){
-    let value = prompt(
-      `${this.question}
-      ${this.options[0]}
-      ${this.options[1]}
-      ${this.options[2]}
-      ${this.options[3]}
-      (Write option number)`
+  registerNewAnswer() {
+    //Get answer
+    let answer = Number(
+      prompt(`${this.question}\n${this.options.join('\n')}
+      \n(Write option number)`)
     );
-    return value;
+    //Register answer
+    typeof answer === 'number' &&
+      answer < this.answers.length &&
+      this.answers[answer]++;
+
+    this.displayResults();
+    this.displayResults('string');
+  },
+  displayResults(type = 'array') {
+    if (type === 'array') {
+      console.log(this.answers);
+    } else if (type === 'string') {
+      console.log(`Poll results are ${this.answers.join(', ')}`);
+    }
   },
 };
 
-let userOption = poll.registerNewAnswer();
+document
+  .querySelector('.poll')
+  .addEventListener('click', poll.registerNewAnswer.bind(poll));
 
-if(userOption < 0 || userOption > 3){
-  alert('Elija un número entre 0 y 3');
-}else if(userOption === NaN) {
-  alert('Ese no es un número. Elija un número entre 0 y 3');
-}else if(userOption === 0){
-  poll.answers[0] += 1;
-}else if(userOption === 1){
-  poll.answers[1] += 1;
-}else if(userOption === 2){
-  poll.answers[2] += 1;
-}else if(userOption === 3){
-  poll.answers[3] += 1;
-}
-
-document.querySelector('.poll').addEventListener('click', poll);
-
-/* 1.1. Display a prompt window for the user to input the number of the selected option. The prompt should look like this:
-    What is your favourite programming language?
-    0: JavaScript
-    1: Python
-    2: Rust
-    3: C++
-    (Write option number)
-  1.2. Based on the input number, update the answers array. For example, if the option is 3, increase the value AT POSITION 3 of the array by 1. Make sure to check if the input is a number and if the number makes sense (e.g answer 52 wouldn't make sense, right?) */
+poll.displayResults.call({ answers: [5, 2, 3] }); //[5, 2, 3]
+poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] }, 'string'); //Poll results are 1, 5, 3, 9, 6, 1
+poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] }); //[1, 5, 3, 9, 6, 1]
