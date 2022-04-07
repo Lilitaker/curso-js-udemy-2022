@@ -20,6 +20,7 @@ console.dir(booker);
 
 /* ================================================= */
 
+/* Example 1 */
 let f;
 
 const g = function() {
@@ -38,7 +39,28 @@ const h = function(){
 
 g();
 f(); //46
+console.dir(f);
 
 //Re-assigning f function
 h();
 f(); //1154
+console.dir(f);
+
+
+/* Example 2 */
+const boardPassengers = function(numPassenger, waitTime) {
+
+  const perGroup = numPassenger / 3;
+
+  setTimeout(function(){
+    console.log(`We are now boarding all ${numPassenger} passengers`);
+    console.log(`There are 3 groups, each with ${perGroup} passengers`);
+  }, waitTime * 1000)
+
+  console.log(`Will start boarding in ${waitTime} seconds`);
+
+}
+
+const perGroup = 1000;
+
+boardPassengers(180, 3);
