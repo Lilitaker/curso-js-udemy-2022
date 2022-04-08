@@ -48,3 +48,33 @@ console.log(arr3.at(-1)); //64
 //Works for strings as well
 console.log('jonas'.at(0)); //j
 console.log('jonas'.at(-1)); //s
+
+
+console.log('MAP() METHOD');
+
+const movements1 = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const eurToUsd = 1.1;
+const movementsUSD = movements1.map(function(mov){
+  return Math.trunc(mov * eurToUsd);
+})
+
+console.log(movementsUSD);
+
+//Arrow function version
+const movementsUSD2 = movements1.map(mov => Math.trunc(mov * eurToUsd));
+
+console.log(movementsUSD2);
+
+//For...of version (different philosophy)
+const movementsUSDfor = [];
+for(const mov of movements1){
+  movementsUSDfor.push(Math.trunc(mov * eurToUsd));
+}
+console.log(movementsUSDfor);
+
+//Map with some logic
+const movementsDescription = movements1.map((mov, i) => `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(mov)}`
+);
+
+console.log(movementsDescription);
