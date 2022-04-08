@@ -34,11 +34,21 @@ const currencies = new Map([
 currencies.forEach(function(val, key, map) {
   console.log(`${key}: ${val}`);
 })
+/*
+USD: United States dollar
+EUR: Euro
+GBP: Pound sterling
+*/
 
 console.log('== SET ==');
 
 const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
-console.log(currenciesUnique);
-currenciesUnique.forEach(function(val, key, map) {
-  console.log();
+console.log(currenciesUnique); //{'USD', 'GBP', 'EUR'}
+currenciesUnique.forEach(function(val, _, map) {
+  console.log(`${val}: ${val}`);
 })
+/*
+USD: USD
+GBP: GBP
+EUR: EUR
+*/

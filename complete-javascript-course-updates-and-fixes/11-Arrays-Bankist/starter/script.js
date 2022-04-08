@@ -72,24 +72,4 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 
 console.log('============== BANKIST APP ===============');
-/* 
-console.log('FOREACH');
 
-movements.forEach(function(mov, i, arr) {
-  if(mov > 0){
-    console.log(`Movement ${i + 1}: You deposited ${mov}`);
-  } else {
-    console.log(`Movement ${i + 1}: You withdrew ${Math.abs(mov)}`);
-  }
-}) */
-
-/* 
-Movement 1: You deposited 200   --> 0: function(200)
-Movement 2: You deposited 450   --> 1: function(450)
-Movement 3: You withdrew 400    --> 2: function(-400)...
-Movement 4: You deposited 3000
-Movement 5: You withdrew 650
-Movement 6: You withdrew 130
-Movement 7: You deposited 70
-Movement 8: You deposited 1300
-*/
