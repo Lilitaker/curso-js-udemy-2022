@@ -118,3 +118,14 @@ console.log(balance2); //3840
 //Arrow function
 const balance3 = movements2.reduce((acc, mov) => acc + mov, 0);
 console.log(balance3); //3840
+
+//Maximum value
+const max = movements2.reduce((acc, mov) => {
+  if(acc > mov) {
+    return acc;
+  }else {
+    return mov;
+  }    
+}, movements2[0]);
+
+console.log(max); //3000
