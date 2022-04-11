@@ -49,15 +49,14 @@ console.log(arr3.at(-1)); //64
 console.log('jonas'.at(0)); //j
 console.log('jonas'.at(-1)); //s
 
-
 console.log('MAP() METHOD');
 
 const movements1 = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 const eurToUsd = 1.1;
-const movementsUSD = movements1.map(function(mov){
+const movementsUSD = movements1.map(function (mov) {
   return Math.trunc(mov * eurToUsd);
-})
+});
 
 console.log(movementsUSD);
 
@@ -68,13 +67,54 @@ console.log(movementsUSD2);
 
 //For...of version (different philosophy)
 const movementsUSDfor = [];
-for(const mov of movements1){
+for (const mov of movements1) {
   movementsUSDfor.push(Math.trunc(mov * eurToUsd));
 }
 console.log(movementsUSDfor);
 
 //Map with some logic
-const movementsDescription = movements1.map((mov, i) => `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(mov)}`
+const movementsDescription = movements1.map(
+  (mov, i) =>
+    `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(
+      mov
+    )}`
 );
 
 console.log(movementsDescription);
+
+console.log('FILTER() METHOD');
+
+const movements2 = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+//Deposits -> Regular function
+const deposits = movements2.filter(function (mov) {
+  return mov > 0;
+});
+console.log(deposits); //[200, 450, 3000, 70, 1300]
+
+//For...of version
+const depositsFor = [];
+for (const mov of movements2) if (mov > 0) depositsFor.push(mov);
+console.log(depositsFor);
+//[200, 450, 3000, 70, 1300]
+
+//Withdrawals -> Arrow function
+const withdrawals = movements2.filter(mov => mov < 0);
+console.log(withdrawals); //[-400, -650, -130]
+
+console.log('REDUCE() METHOD');
+
+const balance = movements2.reduce(function (acc, mov, i, arr) {
+  console.log(`Iteration ${i}: ${acc}`);
+  return acc + mov;
+}, 0);
+console.log(balance); //3840
+
+//For...of version
+let balance2 = 0;
+for (const mov of movements2) balance2 += mov;
+console.log(balance2); //3840
+
+//Arrow function
+const balance3 = movements2.reduce((acc, mov) => acc + mov, 0);
+console.log(balance3); //3840
