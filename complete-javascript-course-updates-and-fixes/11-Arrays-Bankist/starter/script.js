@@ -62,8 +62,8 @@ console.log('============== BANKIST APP ===============');
 //Display movements of account1
 const displayMovements = function (movements) {
   //Hide fixed movements of html file
-  containerMovements.innerHTML = ''; 
- 
+  containerMovements.innerHTML = '';
+
   movements.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
@@ -80,15 +80,23 @@ const displayMovements = function (movements) {
 
 displayMovements(account1.movements);
 
+//Calculate balance of the account
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance} EUR`
+};
+
+calcDisplayBalance(account1.movements);
+
 //Create usernames for login
 const createUsernames = function (accs) {
   accs.forEach(function (acc) {
-    acc.username = acc.owner//creating a new property for each account
+    acc.username = acc.owner //creating a new property for each account
       .toLowerCase()
       .split(' ')
       .map(name => name[0])
       .join('');
-  })
+  });
 };
 
 createUsernames(accounts);
