@@ -79,12 +79,10 @@ const displayMovements = function (movements) {
 };
 
 // Calculate balance of the account (step 3)
-const calcDisplayBalance = function (movements) {
-  const balance = movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${balance}€`
+const calcDisplayBalance = function (acc) {
+  acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${acc.balance}€`
 };
-
-calcDisplayBalance(account1.movements);
 
 // Calculate incomes, outgoings and interests (step 4)
 const calcDisplaySummary = function(acc){
@@ -112,6 +110,18 @@ const createUsernames = function (accs) {
 
 createUsernames(accounts);
 
+//Update UI (step 7...refactored)
+const updateUI = function(acc){
+   //Display movements
+   displayMovements(acc.movements);
+
+   //Display balance
+   calcDisplayBalance(acc);
+
+   //Display summary
+   calcDisplaySummary(acc);
+}
+
 // Event handler for the login button (step 5)
 
 let currentAccount;
@@ -133,13 +143,30 @@ btnLogin.addEventListener('click', function(e){
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
 
-    //Display movements
-    displayMovements(currentAccount.movements);
-
-    //Display balance
-    calcDisplayBalance(currentAccount.movements);
-
-    //Display summary
-    calcDisplaySummary(currentAccount);
+    //Call the function to update UI
+    updateUI(currentAccount);
   }
 });
+
+// Event handler for transfering (step 6)
+btnTransfer.addEventListener('click', function(e){
+  // Prevent form from submitting
+  e.preventDefault();
+
+  //Get the value of transfer inputs 
+  const amount = Number(inputTransferAmount.value);
+  const receiverAcc = accounts.find(acc => acc.username === inputTransferTo.value);
+
+  //Clear input fields
+  inputTransferTo.value = inputTransferAmount.value = '';
+
+  //Conditions to send the money
+  if(amount > 0 && receiverAcc && currentAccount.balance >= amount && receiverAcc.username !== currentAccount.username){
+    //Doing the transfer: Add to the giver the outgoing and to receiver the income 
+    currentAccount.movements.push(-amount);
+    receiverAcc.movements.push(amount);
+
+    //Call the function to update UI
+    updateUI(currentAccount);
+  }
+})
