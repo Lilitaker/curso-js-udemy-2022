@@ -89,4 +89,23 @@ const calcAverageHumanAge = function (ages) {
 };
 
 calcAverageHumanAge(juliaData3); //Results inside function
-calcAverageHumanAge(kateData3);
+calcAverageHumanAge(kateData3); //47.333333333333336
+
+// Coding Challenge #3
+
+/* 
+Rewrite the 'calcAverageHumanAge' function from the previous challenge, but this time as an arrow function, and using chaining!
+
+TEST DATA 1: [5, 2, 4, 1, 15, 8, 3]
+TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
+*/
+
+console.log('============== CHALLENGE 3 ===============');
+
+const newCalcAverageHumanAge = function(ages) {
+  const chainingAges = ages.map(dogAge => dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4).filter(age => age >= 18).reduce((acc, age, i, arr) => acc + age / arr.length, 0)
+  console.log(chainingAges);
+}
+
+newCalcAverageHumanAge(juliaData3); //44
+newCalcAverageHumanAge(kateData3); //47.333333333333336
