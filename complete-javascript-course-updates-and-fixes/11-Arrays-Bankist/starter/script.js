@@ -59,9 +59,9 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 console.log('============== BANKIST APP ===============');
 
-//Display movements of account1
+// Display accounts movements (step 1)
 const displayMovements = function (movements) {
-  //Hide fixed movements of html file
+  // Hide fixed movements of html file
   containerMovements.innerHTML = '';
 
   movements.forEach(function (mov, i) {
@@ -78,9 +78,7 @@ const displayMovements = function (movements) {
   });
 };
 
-displayMovements(account1.movements);
-
-//Calculate balance of the account
+// Calculate balance of the account (step 3)
 const calcDisplayBalance = function (movements) {
   const balance = movements.reduce((acc, mov) => acc + mov, 0);
   labelBalance.textContent = `${balance}€`
@@ -88,22 +86,20 @@ const calcDisplayBalance = function (movements) {
 
 calcDisplayBalance(account1.movements);
 
-//Calculate incomes, outgoings and interests
-const calcDisplaySummary = function(movements){
-  const incomes = movements.filter(mov => mov > 0).reduce((acc, dep) => acc + dep, 0);
+// Calculate incomes, outgoings and interests (step 4)
+const calcDisplaySummary = function(acc){
+  const incomes = acc.movements.filter(mov => mov > 0).reduce((acc, dep) => acc + dep, 0);
   labelSumIn.textContent = `${incomes}€`;
 
-  const outgoing = Math.abs(movements.filter(mov => mov < 0).reduce((acc, mov) => acc + mov, 0));
+  const outgoing = Math.abs(acc.movements.filter(mov => mov < 0).reduce((acc, mov) => acc + mov, 0));
   labelSumOut.textContent = `${outgoing}€`;
 
-  //The bank pays out an interest each time that there's a deposit. It only pays an interest if it is at least one euro
-  const interest = movements.filter(mov => mov > 0).map(deposit => deposit * 1.2 / 100).filter((int) => int >= 1).reduce((acc, int) => acc + int, 0);
+  // The bank pays out an interest each time that there's a deposit. It only pays an interest if it is at least one euro
+  const interest = acc.movements.filter(mov => mov > 0).map(deposit => deposit * acc.interestRate / 100).filter((int) => int >= 1).reduce((acc, int) => acc + int, 0);
   labelSumInterest.textContent = `${interest}€`
 }
 
-calcDisplaySummary(account1.movements);
-
-//Create usernames for login
+// Create usernames for login (step 2)
 const createUsernames = function (accs) {
   accs.forEach(function (acc) {
     acc.username = acc.owner //creating a new property for each account
@@ -115,3 +111,35 @@ const createUsernames = function (accs) {
 };
 
 createUsernames(accounts);
+
+// Event handler for the login button (step 5)
+
+let currentAccount;
+
+btnLogin.addEventListener('click', function(e){
+  // Prevent form from submitting
+  e.preventDefault();
+
+  //Input user
+  currentAccount = accounts.find(acc => acc.username === inputLoginUsername.value);
+
+  //Input PIN 
+  if(currentAccount?.pin === Number(inputLoginPin.value)){
+    //Display message and UI
+    labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}!`;
+    containerApp.style.opacity = 100;
+
+    //Clear input fields
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginPin.blur();
+
+    //Display movements
+    displayMovements(currentAccount.movements);
+
+    //Display balance
+    calcDisplayBalance(currentAccount.movements);
+
+    //Display summary
+    calcDisplaySummary(currentAccount);
+  }
+});
