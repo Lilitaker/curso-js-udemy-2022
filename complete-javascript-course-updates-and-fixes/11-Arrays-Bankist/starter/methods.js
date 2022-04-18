@@ -209,3 +209,48 @@ const deposit = mov => mov < 0;
 console.log(movements4.some(deposit)); //true
 console.log(movements4.every(deposit)); //false
 console.log(movements4.filter(deposit)); //[-400, -650, -130]
+
+console.log('FLAT() METHOD');
+
+const arr4 = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arr4.flat()); //[1, 2, 3, 4, 5, 6, 7, 8]
+
+const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+console.log(arrDeep.flat()); //[Array(2), 3, 4, Array(2), 7, 8]
+console.log(arrDeep.flat(2)); //[1, 2, 3, 4, 5, 6, 7, 8]
+
+//=========================================================
+
+const accountAA = {
+  owner: 'Jonas Schmedtmann',
+  movements: [200, 450, -400, 3000],
+  interestRate: 1.2,
+  pin: 1111,
+};
+
+const accountBB = {
+  owner: 'Jessica Davis',
+  movements: [5000, 3400, -150, -790],
+  interestRate: 1.5,
+  pin: 2222,
+};
+
+const accounts2 = [accountAA, accountBB];
+
+//Old way
+const accountMovements = accounts2.map(acc => acc.movements);
+console.log(accountMovements); //[Array(4), Array(4)]
+
+const allMovements = accountMovements.flat();
+console.log(allMovements); //[200, 450, -400, 3000, 5000, 3400, -150, -790]
+
+const overalBalance = allMovements.reduce((acc, mov) => acc + mov, 0);
+console.log(overalBalance); //10710
+
+//New way - chaining
+const overalBalance1 = accounts2
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((acc, mov) => acc + mov, 0);
+
+console.log(overalBalance1); //10710
