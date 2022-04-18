@@ -1,4 +1,4 @@
 {
-    "diffEditor.wordWrap": "on",
-    "editor.formatOnSave": true
+  "diffEditor.wordWrap": "on",
+  "editor.formatOnSave": true
 }

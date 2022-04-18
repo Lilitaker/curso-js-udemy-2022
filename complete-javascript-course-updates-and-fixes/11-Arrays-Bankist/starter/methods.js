@@ -2,7 +2,6 @@
 
 console.log('============== ARRAY METHODS ===============');
 
-
 console.log('SLICE() METHOD');
 
 let arr = ['a', 'b', 'c', 'd', 'e'];
@@ -14,7 +13,6 @@ console.log(arr.slice(1, -2)); //['b', 'c']
 console.log(arr.slice()); //['a', 'b', 'c', 'd', 'e']
 console.log([...arr]); //['a', 'b', 'c', 'd', 'e']
 
-
 console.log('SPLICE() METHOD');
 
 //console.log(arr.splice(2)); //['c', 'd', 'e']
@@ -22,13 +20,11 @@ arr.splice(-1); //['e']
 arr.splice(1, 2); //['b', 'c']
 console.log(arr); //['a', 'd']
 
-
 console.log('REVERSE() METHOD');
 
 const arr2 = ['j', 'i', 'h', 'g', 'f'];
 console.log(arr2.reverse()); //['f', 'g', 'h', 'i', 'j']
 console.log(arr2); //['f', 'g', 'h', 'i', 'j']
-
 
 console.log('CONCAT() METHOD');
 
@@ -36,10 +32,8 @@ const letters = arr.concat(arr2);
 console.log(letters); //['a', 'd', 'f', 'g', 'h', 'i', 'j']
 console.log([...arr, ...arr2]); //['a', 'd', 'f', 'g', 'h', 'i', 'j']
 
-
 console.log('JOIN() METHOD');
 console.log(letters.join(' - ')); //a - d - f - g - h - i - j
-
 
 console.log('AT() METHOD');
 const arr3 = [23, 11, 64];
@@ -54,7 +48,6 @@ console.log(arr3.at(-1)); //64
 //Works for strings as well
 console.log('jonas'.at(0)); //j
 console.log('jonas'.at(-1)); //s
-
 
 console.log('MAP() METHOD');
 
@@ -89,7 +82,6 @@ const movementsDescription = movements1.map(
 
 console.log(movementsDescription);
 
-
 console.log('FILTER() METHOD');
 
 const movements2 = [200, 450, -400, 3000, -650, -130, 70, 1300];
@@ -110,7 +102,6 @@ console.log(depositsFor);
 const withdrawals = movements2.filter(mov => mov < 0);
 console.log(withdrawals); //[-400, -650, -130]
 
-
 console.log('REDUCE() METHOD');
 
 const balance = movements2.reduce(function (acc, mov, i, arr) {
@@ -130,25 +121,26 @@ console.log(balance3); //3840
 
 //Maximum value
 const max = movements2.reduce((acc, mov) => {
-  if(acc > mov) {
+  if (acc > mov) {
     return acc;
-  }else {
+  } else {
     return mov;
-  }    
+  }
 }, movements2[0]);
 
 console.log(max); //3000
-
 
 console.log('CHAINING METHODS');
 
 const movements3 = [200, 450, -400, 3000, -650, -130, 70, 1300];
 const eurToUsd2 = 1.1;
 
-const totalDepositsUSD = movements3.filter(mov => mov > 0).map(mov => mov * eurToUsd2).reduce((acc, mov) => acc + mov, 0);
+const totalDepositsUSD = movements3
+  .filter(mov => mov > 0)
+  .map(mov => mov * eurToUsd2)
+  .reduce((acc, mov) => acc + mov, 0);
 
 console.log(Math.trunc(totalDepositsUSD)); //5522
-
 
 console.log('FIND() METHOD');
 
@@ -189,7 +181,31 @@ const account = accounts1.find(acc => acc.owner === 'Jessica Davis');
 console.log(account); //{owner: 'Jessica Davis', movements: Array(8), interestRate: 1.5, pin: 2222}
 
 //for...of version
-for(const account of accounts1){
+for (const account of accounts1) {
   if (account.owner === 'Jessica Davis') console.log(account);
 }
 //{owner: 'Jessica Davis', movements: Array(8), interestRate: 1.5, pin: 2222}
+
+console.log('SOME() METHOD');
+
+const movements4 = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const anyDeposits = movements4.some(mov => mov > 0);
+console.log(anyDeposits); //true
+
+//Equality
+console.log(movements4.includes(-130)); //true
+
+//Condition
+console.log(movements4.some(mov => mov === -130)); //true
+
+console.log('EVERY() METHOD');
+
+console.log(movements4.every(mov => mov > 0)); //false
+
+console.log('SEPARATE CALLBACK');
+
+const deposit = mov => mov < 0;
+console.log(movements4.some(deposit)); //true
+console.log(movements4.every(deposit)); //false
+console.log(movements4.filter(deposit)); //[-400, -650, -130]

@@ -137,8 +137,9 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
-// Event handler for the login button (step 5)
+// ================ Event handlers =====================
 
+// Event handler for the login button (step 5)
 let currentAccount;
 
 btnLogin.addEventListener('click', function (e) {
@@ -197,7 +198,25 @@ btnTransfer.addEventListener('click', function (e) {
   }
 });
 
-// Close account (step 8)
+// Event handler ask for a loan (step 9)
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    //Add movement
+    currentAccount.movements.push(amount);
+
+    //Update UI
+    updateUI(currentAccount);
+  }
+
+  //Clear input field
+  inputLoanAmount.value = '';
+});
+
+// Event handler to close account (step 8)
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();
 
