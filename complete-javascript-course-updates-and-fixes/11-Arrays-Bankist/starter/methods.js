@@ -254,3 +254,54 @@ const overalBalance1 = accounts2
   .reduce((acc, mov) => acc + mov, 0);
 
 console.log(overalBalance1); //10710
+
+console.log('FLATMAP() METHOD');
+
+const overalBalance2 = accounts2
+  .flatMap(acc => acc.movements)
+  .reduce((acc, mov) => acc + mov, 0);
+
+console.log(overalBalance2); //10710
+
+console.log('SORT() METHOD');
+
+//Strings
+const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+console.log(owners.sort()); //['Adam', 'Jonas', 'Martha', 'Zach']
+
+//Numbers
+const movements5 = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+//This is not what we want
+console.log(movements5.sort()); //[-130, -400, -650, 1300, 200, 3000, 450, 70]
+
+/*This is what we actually want
+- return < 0, A - B (keep order)
+- return > 0, B - A (switch order) 
+*/
+
+// Ascending order
+/* Option A
+ movements5.sort((a, b) => {
+  //The numbers of the conditions don't matter as long as they accomplish the conditions (less/greater than zero)
+  if (a > b) return 1;
+  if (b > a) return -1;
+}); */
+
+//Option B
+movements5.sort((a, b) => a - b);
+
+console.log(movements5); //[-650, -400, -130, 70, 200, 450, 1300, 3000]
+
+// Descending order
+/* Option A
+movements5.sort((a, b) => {
+  //The numbers of the conditions don't matter as long as they accomplish the conditions (less/greater than zero)
+  if (a > b) return -1;
+  if (b > a) return 1;
+}); */
+
+//Option B
+movements5.sort((a, b) => b - a);
+
+console.log(movements5); //[3000, 1300, 450, 200, 70, -130, -400, -650]
