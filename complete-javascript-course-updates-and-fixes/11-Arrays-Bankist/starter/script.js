@@ -67,11 +67,16 @@ const inputClosePin = document.querySelector('.form__input--pin');
 console.log('============== BANKIST APP ===============');
 
 // Display accounts movements (step 1)
-const displayMovements = function (movements) {
+// Add sort feature (step 10)
+const displayMovements = function (movements, sort = false) {
   // Hide fixed movements of html file
   containerMovements.innerHTML = '';
 
-  movements.forEach(function (mov, i) {
+  //Create a copy of the array (step 10)
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  //Change movements for movs (step 10)
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
       <div class="movements__row">
@@ -240,4 +245,13 @@ btnClose.addEventListener('click', function (e) {
 
   //Setting start login message
   labelWelcome.textContent = 'Log in to get started';
+});
+
+//Event handler to sort the values (step 11)
+let sorted = false;
+
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault;
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
 });
