@@ -255,3 +255,13 @@ btnSort.addEventListener('click', function (e) {
   displayMovements(currentAccount.movements, !sorted);
   sorted = !sorted;
 });
+
+//Example of Array.from() --> Create an array using values from the UI
+labelBalance.addEventListener('click', function () {
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => Number(el.textContent.replace('€', ''))
+  );
+  console.log(movementsUI);
+  /* const movementsUI2 = [...document.querySelectorAll('.movements__value')]; */
+});

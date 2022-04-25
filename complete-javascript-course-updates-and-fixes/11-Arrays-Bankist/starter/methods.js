@@ -305,3 +305,41 @@ movements5.sort((a, b) => {
 movements5.sort((a, b) => b - a);
 
 console.log(movements5); //[3000, 1300, 450, 200, 70, -130, -400, -650]
+
+console.log('FILL() METHOD & ARRAY.FROM()');
+
+//Known ways to create arrays
+const arr5 = [1, 2, 3, 4, 5, 6, 7];
+console.log(new Array(1, 2, 3, 4, 5, 6, 7));
+
+//New ways to create arrays
+
+// A: empty array + fill method
+const x = new Array(7);
+console.log(x); //[empty × 7]
+x.fill(1);
+console.log(x); //[1, 1, 1, 1, 1, 1, 1]
+
+const y = new Array(5);
+y.fill(1, 3);
+console.log(y); //[empty × 3, 1, 1]
+
+const z = new Array(6);
+z.fill(1, 3, 5);
+console.log(z); //[empty × 3, 1, 1, empty]
+
+arr5.fill(23, 2, 6);
+console.log(arr5); //[1, 2, 23, 23, 23, 23, 7]
+
+// B: Array.from
+const w = Array.from({ length: 5 }, () => 1);
+console.log(w); //[1, 1, 1, 1, 1]
+
+//It is like the callback function of the map() method
+const t = Array.from({ length: 7 }, (_, i) => i + 1);
+console.log(t); //[1, 2, 3, 4, 5, 6, 7]
+
+const dice = Array.from({ length: 100 }, (_, i) =>
+  Math.floor(Math.random(i) * 100)
+);
+console.log(dice);
