@@ -148,3 +148,43 @@ const dogs = [
 */
 
 console.log('============== CHALLENGE 4 ===============');
+
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] },
+];
+
+//1
+dogs.forEach(dog => (dog.recFood = Math.trunc(dog.weight ** 0.75 * 28)));
+console.log(dogs);
+/* 
+0: {weight: 22, curFood: 250, owners: Array(2), recFood: 284}
+1: {weight: 8, curFood: 200, owners: Array(1), recFood: 133}
+2: {weight: 13, curFood: 275, owners: Array(2), recFood: 191}
+3: {weight: 32, curFood: 340, owners: Array(1), recFood: 376}
+*/
+
+//2
+const dogSarah = dogs.find(dog => dog.owners.includes('Sarah'));
+console.log(dogSarah); //{weight: 13, curFood: 275, owners: Array(2), recFood: 191}
+console.log(
+  `Sarah's dog is eating too ${
+    dogSarah.curFood > dogSarah.recFood ? 'much!' : 'little!'
+  }`
+);
+//Sarah's dog is eating too much!
+
+//3
+const ownersEatTooMuch = dogs
+  .filter(dog => dog.curFood > dog.recFood)
+  .flatMap(dog => dog.owners);
+console.log(ownersEatTooMuch); //['Matilda', 'Sarah', 'John']
+
+const ownersEatTooLittle = dogs
+  .filter(dog => dog.curFood < dog.recFood)
+  .flatMap(dog => dog.owners);
+console.log(ownersEatTooLittle); //['Alice', 'Bob', 'Michael']
+
+//4
