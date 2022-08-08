@@ -188,3 +188,20 @@ const ownersEatTooLittle = dogs
 console.log(ownersEatTooLittle); //['Alice', 'Bob', 'Michael']
 
 //4
+console.log(`${ownersEatTooMuch.join(' and ')}'s dogs eat too much!`); //Matilda and Sarah and John's dogs eat too much!
+console.log(`${ownersEatTooLittle.join(', ')}'s dogs eat too little!`); //Alice, Bob, Michael's dogs eat too little!
+
+//5
+console.log(dogs.some(dog => dog.curFood === dog.recFood)); //false
+
+//6
+const checkEatingOk = dog =>
+  dog.curFood > dog.recFood * 0.9 && dog.curFood < dog.recFood * 1.1;
+console.log(dogs.some(checkEatingOk)); //true
+
+//7
+console.log(dogs.filter(checkEatingOk)); //Michel's dog
+
+//8
+const dogsSorted = dogs.slice().sort((a, b) => a.recFood - b.recFood);
+console.log(dogsSorted);
